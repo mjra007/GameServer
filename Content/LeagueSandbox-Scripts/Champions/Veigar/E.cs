@@ -68,7 +68,7 @@ namespace Spells
                     AddParticle(spell.CastInfo.Owner, "Veigar_Skin04_E_cage_green.troy", truecoords, lifetime: 3f);
                     break;
                 default:
-                    AddParticleTarget(spell.CastInfo.Owner, "Veigar_Base_E_cas.troy", owner, lifetime: 1f);
+                    // AddParticleTarget(spell.CastInfo.Owner, "Veigar_Base_E_cas.troy", owner, lifetime: 1f);  No idea what particle FX this was supposed to be, but it just spamms a bunch of blue squares around the target
                     AddParticle(spell.CastInfo.Owner, "Veigar_Base_E_cage_green.troy", truecoords, lifetime: 3f);
                     break;
 
