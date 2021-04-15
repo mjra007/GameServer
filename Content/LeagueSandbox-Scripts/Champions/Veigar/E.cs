@@ -44,8 +44,8 @@ namespace Spells
 
         public void OnSpellCast(ISpell spell)
         {
-            //ticks = 0;
-            //SPELL = spell;
+            var owner = spell.CastInfo.Owner as IChampion;
+            var ownerSkinID = owner.Skin;
             truecoords = new Vector2(spell.CastInfo.TargetPosition.X, spell.CastInfo.TargetPosition.Z);
             var distance = Vector2.Distance(spell.CastInfo.Owner.Position, truecoords);
             if (distance > 650f)
@@ -53,8 +53,27 @@ namespace Spells
                 truecoords = GetPointFromUnit(spell.CastInfo.Owner, 650f);
             }
 
-            AddParticle(spell.CastInfo.Owner, "Veigar_Base_E_cas.troy", truecoords);
-            AddParticle(spell.CastInfo.Owner, "Veigar_Base_E_cage_green.troy", truecoords, lifetime: 3f);
+            switch (ownerSkinID)
+            {
+                case 8:
+                    AddParticleTarget(spell.CastInfo.Owner, "Veigar_Skin08_E_cas.troy", owner, lifetime: 1f);
+                    AddParticle(spell.CastInfo.Owner, "Veigar_Skin08_E_cage_green.troy", truecoords, lifetime: 3f);
+                    break;
+                case 6:
+                    AddParticle(spell.CastInfo.Owner, "Veigar_Base_E_cas.troy", truecoords);
+                    AddParticle(spell.CastInfo.Owner, "Veigar_Skin06_E_cage_green.troy", truecoords, lifetime: 3f);
+                    break;
+                case 4:
+                    AddParticle(spell.CastInfo.Owner, "Veigar_Base_E_cas.troy", truecoords) ;
+                    AddParticle(spell.CastInfo.Owner, "Veigar_Skin04_E_cage_green.troy", truecoords, lifetime: 3f);
+                    break;
+                default:
+                    AddParticleTarget(spell.CastInfo.Owner, "Veigar_Base_E_cas.troy", owner, lifetime: 1f);
+                    AddParticle(spell.CastInfo.Owner, "Veigar_Base_E_cage_green.troy", truecoords, lifetime: 3f);
+                    break;
+
+            }
+
 
 
 
@@ -97,7 +116,7 @@ namespace Spells
 
             //        }
             //    }
-            
+
         }
     }
 }

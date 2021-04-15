@@ -36,15 +36,31 @@ namespace Spells
 
         public void TargetExecute(ISpell spell, IAttackableUnit target, ISpellMissile missile)
         {
-            var owner = spell.CastInfo.Owner;
+            var owner = spell.CastInfo.Owner as IChampion;
+            var ownerSkinID = owner.Skin;
             var APratio = owner.Stats.AbilityPower.Total * 0.6f;
             var damage = 80f + ((spell.CastInfo.SpellLevel - 1) * 45) + APratio;
             var StacksPerLevel = spell.CastInfo.SpellLevel;
 
+            //TODO: Make this particle properly work
+           /* if (ownerSkinID == 8)
+            {
 
+                //AddParticleTarget(owner, "Veigar_Skin08_Q_cas.troy", owner, 1, bone: "r_middle", lifetime: 5f);
+
+            } */
 
             target.TakeDamage(owner, damage, DamageType.DAMAGE_TYPE_MAGICAL, DamageSource.DAMAGE_SOURCE_SPELL, false);
-            AddParticleTarget(owner, "Veigar_Base_Q_tar.troy", target, lifetime: 1f);
+            if (ownerSkinID == 8)
+            {
+                AddParticleTarget(owner, "Veigar_Skin08_Q_tar.troy", target, lifetime: 1f);
+                
+
+            }
+            else
+            {
+                AddParticleTarget(owner, "Veigar_Base_Q_tar.troy", target, lifetime: 1f);
+            }
 
             if (target.IsDead)
             {
@@ -65,6 +81,14 @@ namespace Spells
                     owner.AddStatModifier(statsModifier);
 
                     //AddBuff("VeigarBalefulStrike", 10f, 1, spell, owner, owner, true);
+                }
+                if (ownerSkinID == 8)
+                {
+                    AddParticleTarget(owner, "Veigar_Skin08_Q_powerup.troy", owner, lifetime: 1f);
+                }
+                else
+                {
+                    AddParticleTarget(owner, "Veigar_Base_Q_powerup.troy", owner, lifetime: 1f);
 
                 }
             }
@@ -100,10 +124,7 @@ namespace Spells
 
         public void OnUpdate(float diff)
         {
-            if (Owner != null)
-            {
-                Owner.Stats.ManaRegeneration.PercentBonus = (100f / Owner.Stats.ManaPoints.Total) * ((Owner.Stats.ManaPoints.Total - Owner.Stats.CurrentMana)/100);
-            }
+
             
         }
     }

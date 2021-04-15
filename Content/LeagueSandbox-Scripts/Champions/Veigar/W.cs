@@ -41,19 +41,26 @@ namespace Spells
 
         public void OnSpellCast(ISpell spell)
         {
+            var owner = spell.CastInfo.Owner as IChampion;
+            var ownerSkinID = owner.Skin;
             var truecoords = new Vector2(spell.CastInfo.TargetPosition.X, spell.CastInfo.TargetPosition.Z);
             var distance = Vector2.Distance(spell.CastInfo.Owner.Position, truecoords);
             if (distance > 900f)
             {
                 truecoords = GetPointFromUnit(spell.CastInfo.Owner, 900f);
             }
-            
-            
-            AddParticle(spell.CastInfo.Owner, "Veigar_Base_W_cas.troy", truecoords, lifetime: 1.25f);
+
+            if (ownerSkinID == 8)
+            {
+                AddParticle(spell.CastInfo.Owner, "Veigar_Skin08_W_cas.troy", truecoords, lifetime: 1.25f);
+            }
+            else
+            {
+                AddParticle(spell.CastInfo.Owner, "Veigar_Base_W_cas.troy", truecoords, lifetime: 1.25f);
+            }
             CreateTimer(1.25f, () =>
             {
 
-                AddParticle(spell.CastInfo.Owner, "Veigar_Base_W_aoe_explosion.troy", truecoords, lifetime: 0.9f);
 
                 var owner = spell.CastInfo.Owner;
                 var APratio = owner.Stats.AbilityPower.Total;
@@ -69,7 +76,7 @@ namespace Spells
 
                         units[i].TakeDamage(spell.CastInfo.Owner, damage, DamageType.DAMAGE_TYPE_MAGICAL, DamageSource.DAMAGE_SOURCE_SPELL, false);
 
-                        if(units[i].IsDead && (units[i] is IChampion))
+                        if (units[i].IsDead && (units[i] is IChampion))
                         {
                             var buffer = owner.Stats.AbilityPower.FlatBonus;
 
@@ -79,7 +86,25 @@ namespace Spells
 
                     }
                 }
+
+                switch (ownerSkinID)
+                {
+                    case 8:
+                        AddParticle(spell.CastInfo.Owner, "Veigar_Skin08_W_aoe_explosion.troy", truecoords, lifetime: 0.9f);
+                        break;
+
+                    case 4:
+                        AddParticle(spell.CastInfo.Owner, "Veigar_Skin04_W_aoe_explosion.troy", truecoords, lifetime: 2f);
+                        break;
+
+                    default:
+                        AddParticle(spell.CastInfo.Owner, "Veigar_Base_W_aoe_explosion.troy", truecoords, lifetime: 0.9f);
+                        break;
+                }
+
+
             }
+
             );
 
 

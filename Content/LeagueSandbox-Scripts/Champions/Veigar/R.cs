@@ -31,26 +31,43 @@ namespace Spells
 
         public void TargetExecute(ISpell spell, IAttackableUnit target, ISpellMissile missile)
         {
-            var owner = spell.CastInfo.Owner;
+            var owner = spell.CastInfo.Owner as IChampion;
+            var ownerSkinID = owner.Skin;
             var APratio = owner.Stats.AbilityPower.Total * 1.2f;
             var targetAP = target.Stats.AbilityPower.Total * 0.8f;
             var damage = 250 + spell.CastInfo.SpellLevel * 125 + APratio + targetAP;
             var StacksPerLevel = spell.CastInfo.SpellLevel;
 
-
             target.TakeDamage(owner, damage, DamageType.DAMAGE_TYPE_MAGICAL, DamageSource.DAMAGE_SOURCE_SPELL, false);
 
-            AddParticleTarget(owner, "Veigar_Base_R_tar.troy", target, 1, lifetime: 1f);
 
-            if(target.IsDead && (target is IChampion))
+            if (ownerSkinID == 8) 
+            {
+                AddParticleTarget(owner, "Veigar_Skin08_R_cas.troy", owner, 1, lifetime: 1f);
+                AddParticleTarget(owner, "Veigar_Skin08_R_tar.troy", target, 1, lifetime: 1f);
+            }
+            else
+            {
+                AddParticleTarget(owner, "Veigar_Base_R_cas.troy", owner, 1, lifetime: 1f);
+                AddParticleTarget(owner, "Veigar_Base_R_tar.troy", target, 1, lifetime: 1f);
+            }
+
+            if (target.IsDead && (target is IChampion))
             {
                 var buffer = owner.Stats.AbilityPower.FlatBonus;
 
                 statsModifier.AbilityPower.FlatBonus = owner.Stats.AbilityPower.FlatBonus + (StacksPerLevel + 2) - buffer;
                 owner.AddStatModifier(statsModifier);
 
-                AddParticle(owner, "Veigar_Base_R_tar.troy", target.Position, 1, lifetime: 1f);
+                if (ownerSkinID == 8)
+                {
+                    AddParticle(owner, "Veigar_Skin08_R_tar.troy", target.Position, 1, lifetime: 1f);
 
+                }
+                else
+                {
+                    AddParticle(owner, "Veigar_Base_R_tar.troy", target.Position, 1, lifetime: 1f);
+                }
             }
 
         }
