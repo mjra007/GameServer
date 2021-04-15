@@ -35,7 +35,7 @@ namespace Spells
             var ownerSkinID = owner.Skin;
             var APratio = owner.Stats.AbilityPower.Total * 1.2f;
             var targetAP = target.Stats.AbilityPower.Total * 0.8f;
-            var damage = 250 + spell.CastInfo.SpellLevel * 125 + APratio + targetAP;
+            var damage = 250 + ((spell.CastInfo.SpellLevel -1) * 125) + APratio + targetAP;
             var StacksPerLevel = spell.CastInfo.SpellLevel;
 
             target.TakeDamage(owner, damage, DamageType.DAMAGE_TYPE_MAGICAL, DamageSource.DAMAGE_SOURCE_SPELL, false);
