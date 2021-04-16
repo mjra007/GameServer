@@ -22,12 +22,10 @@ namespace FlaskOfCrystalWater
         {
             StatsModifier.ManaRegeneration.FlatBonus = 6.67f;
             unit.AddStatModifier(StatsModifier);
-            potion = AddParticleTarget(ownerSpell.CastInfo.Owner, "GLOBAL_Item_ManaPotion.troy", unit, 1, lifetime: buff.Duration);
         }
 
         public void OnDeactivate(IAttackableUnit unit, IBuff buff, ISpell ownerSpell)
         {
-            potion.SetToRemove();
         }
 
         public void OnUpdate(float diff)

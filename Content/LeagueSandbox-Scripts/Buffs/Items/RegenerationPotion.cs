@@ -22,12 +22,10 @@ namespace RegenerationPotion
         {
             StatsModifier.HealthRegeneration.FlatBonus = 10f;
             unit.AddStatModifier(StatsModifier);
-            potion = AddParticleTarget(ownerSpell.CastInfo.Owner, "GLOBAL_Item_HealthPotion.troy", unit, 1, "Buffbone_Glb_Ground_Loc", lifetime: buff.Duration);
         }
 
         public void OnDeactivate(IAttackableUnit unit, IBuff buff, ISpell ownerSpell)
         {
-            potion.SetToRemove();
         }
 
         public void OnUpdate(float diff)
