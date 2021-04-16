@@ -25,11 +25,8 @@ namespace Spells
         public void OnSpellPreCast(IObjAiBase owner, ISpell spell, IAttackableUnit target, Vector2 start, Vector2 end)
         {
             AddBuff("YoumuusGhostblade", 6.0f, 1, spell, owner, owner);
-            var p = AddParticleTarget(owner, "spectral_fury_activate_speed.troy", owner, 2);
-            CreateTimer(6.0f, () =>
-            {
-                RemoveParticle(p);
-            });
+            AddParticleTarget(owner, "spectral_fury_activate_speed.troy", owner, 2, lifetime: 6f);
+
         }
 
         public void OnSpellCast(ISpell spell)
