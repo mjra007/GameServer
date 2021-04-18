@@ -24,14 +24,14 @@ namespace YorickSpectral
 
         public void OnActivate(IAttackableUnit unit, IBuff buff, ISpell ownerSpell)
         {
-            pbuff = AddParticleTarget(unit, "yorick_spectralGhoul_attack_buf_self.troy", unit, 1, "L_hand", lifetime: buff.Duration);
-            pbuff2 = AddParticleTarget(unit, "yorick_spectralGhoul_attack_buf_self.troy", unit, 1, "l_hand", lifetime: buff.Duration);
+            //pbuff = AddParticleTarget(unit, "yorick_spectralGhoul_attack_buf_self.troy", unit, 1, "L_hand", lifetime: buff.Duration);
+            //pbuff2 = AddParticleTarget(unit, "yorick_spectralGhoul_attack_buf_self.troy", unit, 1, "l_hand", lifetime: buff.Duration);
         }
 
         public void OnDeactivate(IAttackableUnit unit, IBuff buff, ISpell ownerSpell)
         {
-            RemoveParticle(pbuff);
-            RemoveParticle(pbuff2);
+            //RemoveParticle(pbuff);
+            //RemoveParticle(pbuff2);
 
         }
 
