@@ -22,7 +22,8 @@ namespace YorickDecayed
         {
             StatsModifier.MoveSpeed.PercentBonus = StatsModifier.MoveSpeed.PercentBonus - (0.3f + (0.05f * (ownerSpell.CastInfo.SpellLevel-1)));
             unit.AddStatModifier(StatsModifier);
-            pbuff = AddParticleTarget(unit, "Leona_ShieldOfDaybreak_cas.troy", unit, 1, "BUFFBONE_CSTM_SHIELD_TOP", lifetime: buff.Duration);
+            AddParticleTarget(unit, "yorick_necroExplosion_unit_tar.troy", unit, 1, lifetime: buff.Duration);
+            AddParticleTarget(unit, "Global_Slow.troy", unit, 1, lifetime: buff.Duration);
         }
 
         public void OnDeactivate(IAttackableUnit unit, IBuff buff, ISpell ownerSpell)
