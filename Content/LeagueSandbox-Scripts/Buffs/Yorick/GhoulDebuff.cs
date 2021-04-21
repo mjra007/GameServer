@@ -44,7 +44,8 @@ namespace GhoulDebuff
 
             if(ticks == 60f) 
             {
-                Unit.TakeDamage(Unit, Unit.Stats.HealthPoints.Total * 0.2f, DamageType.DAMAGE_TYPE_TRUE, DamageSource.DAMAGE_SOURCE_PERIODIC, false);
+                //Unit.TakeDamage(Unit, Unit.Stats.HealthPoints.Total * 0.2f, DamageType.DAMAGE_TYPE_TRUE, DamageSource.DAMAGE_SOURCE_PERIODIC, false);
+                Unit.Stats.CurrentHealth = Unit.Stats.CurrentHealth - (Unit.Stats.HealthPoints.Total * 0.2f);
                 ticks = 0;
             }
             if(ticks2 == 300f)
