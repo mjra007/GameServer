@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Numerics;
 using GameServerCore.Content;
 using GameServerCore.Domain;
 
@@ -30,7 +29,6 @@ namespace GameServerCore.Maps
         /// List of events related to the announcer (ex: first blood)
         /// </summary>
         List<IAnnounce> AnnouncerEvents { get; }
-
 
         /// <summary>
         /// Initializes MapProperties. Usually only occurs once before players are added to Game.
