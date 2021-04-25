@@ -11,11 +11,12 @@ using GameServerCore.Domain.GameObjects.Spell.Missile;
 
 namespace Spells
 {
-    public class YorickSpectral : ISpellScript
+    public class NasusQ : ISpellScript
     {
         IMinion minion;
         IObjAiBase Owner;
         IBuff Buff;
+        IBuff Buff2;
         ISpell Spell;
         public ISpellScriptMetadata ScriptMetadata { get; private set; } = new SpellScriptMetadata()
         {
@@ -26,6 +27,7 @@ namespace Spells
 
         public void OnActivate(IObjAiBase owner, ISpell spell)
         {
+
         }
 
         public void OnDeactivate(IObjAiBase owner, ISpell spell)
@@ -38,12 +40,15 @@ namespace Spells
             Spell = spell;
             spell.CastInfo.Owner.CancelAutoAttack(true);
             ApiEventManager.OnHitUnit.AddListener(this, spell.CastInfo.Owner, TargetExecute, true);
-            Buff = AddBuff("YorickSpectral", 10.0f, 1, spell, owner, owner);
+            Buff = AddBuff("NasusQ", 10.0f, 1, spell, owner, owner);
+            Buff2 = AddBuff("NasusQStacks", 5f, 1, spell, owner, owner, true);
 
         }
 
+
         public void OnSpellCast(ISpell spell)
         {
+
         }
 
         public void OnSpellPostCast(ISpell spell)
@@ -63,56 +68,41 @@ namespace Spells
         }
         public void TargetExecute(IAttackableUnit unit, bool isCrit)
         {
-            if (Owner.HasBuff("YorickSpectral"))
+            if (Owner.HasBuff("NasusQ"))
             {
-                var ADratio = Owner.Stats.AttackDamage.Total * 0.2f;
-                var damage = 30f + (30 * (Spell.CastInfo.SpellLevel - 1)) + ADratio;
-                LogInfo("pastel");
+                float stackCount = Buff2.StackCount;
 
 
+                var damage = 30f + (20f * (Spell.CastInfo.SpellLevel - 1)) + stackCount;;
                 unit.TakeDamage(Owner, damage, DamageType.DAMAGE_TYPE_PHYSICAL, DamageSource.DAMAGE_SOURCE_ATTACK, false);
-                RemoveBuff(Buff);
 
-                minion = AddMinion(Owner, "YorickSpectralGhoul", "YorickSpectralGhoul", unit.Position);
-                LogInfo("pastel2");
-
-                //Ghould debuff (Sets All the stats and decaying health)
-                AddBuff("GhoulDebuff", 99999f, 1, Spell, minion, minion);
-
-
-                //MovSpeed Buffs:
-                AddBuff("Something", 5f, 1, Spell, Owner, minion);
-                AddBuff("Something", 5f, 1, Spell, minion, minion);
-
-                if (!minion.IsDead)
+                if (unit.IsDead)
                 {
-                    var units = GetUnitsInRange(minion.Position, 200f, true);
-                    foreach (var value in units)
+                    if (unit is IChampion)
                     {
-                        if (Owner.Team != value.Team && value is IAttackableUnit && !(value is IBaseTurret) && !(value is IObjAnimatedBuilding))
-                        {
-                            //TODO: Change TakeDamage to activate on Jack AutoAttackHit, not use CreateTimer, and make Pets use owner spell stats
-
-                            minion.SetTargetUnit(value);
-
-
-                        }
+                        AddBuff("NasusQStacks", 1f, 6, Spell, Owner, Owner, true);
+                        AddBuff("NasusQStacks", 1f, 6, Spell, Owner, Owner, true);
+                        AddBuff("NasusQStacks", 1f, 6, Spell, Owner, Owner, true);
+                        AddBuff("NasusQStacks", 1f, 6, Spell, Owner, Owner, true);
+                        AddBuff("NasusQStacks", 1f, 6, Spell, Owner, Owner, true);
+                        AddBuff("NasusQStacks", 1f, 6, Spell, Owner, Owner, true);
+                    }
+                    else
+                    {
+                        AddBuff("NasusQStacks", 1f, 3, Spell, Owner, Owner, true);
+                        AddBuff("NasusQStacks", 1f, 3, Spell, Owner, Owner, true);
+                        AddBuff("NasusQStacks", 1f, 3, Spell, Owner, Owner, true);
                     }
                 }
             }
+            RemoveBuff(Buff);
+
         }
         public void OnUpdate(float diff)
         {
-            if (minion != null && !minion.IsDead)
-            {
 
-                var target = GetClosestUnitInRange(minion, 700f, true);
-                if (target != null && !target.IsDead && target.Team != Owner.Team)
-                {
-                    minion.SetTargetUnit(target);
-                }
-            }
         }
+
 
     }
 }

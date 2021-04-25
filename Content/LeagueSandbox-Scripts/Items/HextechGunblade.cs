@@ -14,18 +14,11 @@ namespace Spells
     {
         public ISpellScriptMetadata ScriptMetadata { get; private set; } = new SpellScriptMetadata()
         {
-            TriggersSpellCasts = true,
-            IsDamagingSpell = true,
-            MissileParameters = new MissileParameters
-            {
-                Type = MissileType.Target
-            },
-
+            //TODO
         };
 
         public void OnActivate(IObjAiBase owner, ISpell spell)
         {
-
         }
 
         public void OnDeactivate(IObjAiBase owner, ISpell spell)
@@ -34,11 +27,11 @@ namespace Spells
 
         public void OnSpellPreCast(IObjAiBase owner, ISpell spell, IAttackableUnit target, Vector2 start, Vector2 end)
         {
+            SpellCastItem(owner, "DeathfireGraspSpell", true, target, Vector2.Zero);
         }
 
         public void OnSpellCast(ISpell spell)
         {
-
         }
 
         public void OnSpellPostCast(ISpell spell)
@@ -72,8 +65,8 @@ namespace Spells
             {
                 Type = MissileType.Target
             },
-            IsDamagingSpell = true,
-            TriggersSpellCasts = true
+            //IsDamagingSpell = true,
+            //TriggersSpellCasts = true
 
         };
 
@@ -81,7 +74,6 @@ namespace Spells
         public void OnActivate(IObjAiBase owner, ISpell spell)
         {
             ApiEventManager.OnSpellHit.AddListener(this, new KeyValuePair<ISpell, IObjAiBase>(spell, owner), TargetExecute, false);
-            LogInfo("teste1");
 
             buff = AddBuff("HextechGunbladePassive", 1f, 1, spell, owner, owner, true);
             LogInfo("teste2");

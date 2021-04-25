@@ -7,6 +7,17 @@ using System.Numerics;
 using LeagueSandbox.GameServer.API;
 using static LeagueSandbox.GameServer.API.ApiFunctionManager;
 using LeagueSandbox.GameServer.GameObjects.Stats;
+using System;
+using System.Collections.Generic;
+
+using GameServerCore.Domain;
+using GameServerCore.Maps;
+using LeagueSandbox.GameServer.GameObjects;
+using LeagueSandbox.GameServer.GameObjects.AttackableUnits;
+using LeagueSandbox.GameServer.GameObjects.AttackableUnits.AI;
+using LeagueSandbox.GameServer.GameObjects.AttackableUnits.Buildings.AnimatedBuildings;
+using LeagueSandbox.GameServer.GameObjects.Other;
+
 
 namespace Spells
 {
@@ -122,6 +133,15 @@ namespace Spells
                     }
 
                 }
+                
+
+                /*var target = GetClosestUnitInRange(minion, 700f, true); 
+
+                if (target != null && target.Team != Owner.Team)
+                {
+                    minion.SetTargetUnit(target);
+                }*/
+
             }
         }
     }

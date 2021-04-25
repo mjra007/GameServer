@@ -12,7 +12,8 @@ namespace Spells
     {
         public ISpellScriptMetadata ScriptMetadata { get; private set; } = new SpellScriptMetadata()
         {
-            TriggersSpellCasts = true
+            TriggersSpellCasts = true,
+            IsDamagingSpell = true
             // TODO
         };
 

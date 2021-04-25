@@ -104,18 +104,16 @@ namespace Spells
 
         public void OnUpdate(float diff)
         {
-           /* if  (minion != null && (!minion.IsDead))
+            if (minion != null && !minion.IsDead) 
             {
-                var units = GetUnitsInRange(minion.Position, 130f, true);
-                for (int i = units.Count - 1; i >= 0; i--)
+
+                var target = GetClosestUnitInRange(minion, 700f, true);
+                if (target != null && !target.IsDead && target.Team != Owner.Team)
                 {
-                    if (units[i].Team != Spell.CastInfo.Owner.Team && !(units[i] is IObjBuilding || units[i] is IBaseTurret) && units[i] is IObjAiBase ai)
-                    {
-                        AddBuff("WSlowAura", 0.1f, 1, Spell, units[i], Owner);
-                        units.RemoveAt(i);
-                    }
+                    minion.SetTargetUnit(target);
+
                 }
-            }*/
+            }
         }
     }
 }
