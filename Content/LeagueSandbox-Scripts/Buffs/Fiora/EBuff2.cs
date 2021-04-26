@@ -24,13 +24,13 @@ namespace FioraFlurryDummy
 
         public void OnActivate(IAttackableUnit unit, IBuff buff, ISpell ownerSpell)
         {
-            StatsModifier.MoveSpeed.PercentBonus = 0.07f + (0.02f * (ownerSpell.CastInfo.SpellLevel - 1));
+            StatsModifier.MoveSpeed.PercentBonus = 0.007f + (0.002f * (ownerSpell.CastInfo.SpellLevel - 1));
             unit.AddStatModifier(StatsModifier);
         }
 
         public void OnDeactivate(IAttackableUnit unit, IBuff buff, ISpell ownerSpell)
         {
-
+            unit.RemoveStatModifier(StatsModifier);
 
         }
 
