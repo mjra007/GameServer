@@ -11,7 +11,7 @@ namespace FioraFlurryDummy
 {
     class FioraFlurryDummy : IBuffGameScript
     {
-        public BuffType BuffType => BuffType.COMBAT_ENCHANCER;
+        public BuffType BuffType => BuffType.HASTE;
         public BuffAddType BuffAddType => BuffAddType.STACKS_AND_RENEWS;
         public int MaxStacks => 3;
         public bool IsHidden => false;
@@ -24,13 +24,13 @@ namespace FioraFlurryDummy
 
         public void OnActivate(IAttackableUnit unit, IBuff buff, ISpell ownerSpell)
         {
-            StatsModifier.MoveSpeed.PercentBonus = 0.007f + (0.002f * (ownerSpell.CastInfo.SpellLevel - 1));
+            StatsModifier.MoveSpeed.PercentBonus = 0.15f + (0.05f * (ownerSpell.CastInfo.SpellLevel - 1));
             unit.AddStatModifier(StatsModifier);
         }
 
         public void OnDeactivate(IAttackableUnit unit, IBuff buff, ISpell ownerSpell)
         {
-            unit.RemoveStatModifier(StatsModifier);
+            //unit.RemoveStatModifier(StatsModifier);
 
         }
 
