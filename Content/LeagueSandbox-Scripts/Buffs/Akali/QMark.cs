@@ -24,8 +24,10 @@ namespace AkaliMota
 
         public void OnActivate(IAttackableUnit unit, IBuff buff, ISpell ownerSpell)
         {
-            //pbuff = AddParticleTarget(unit, "yorick_spectralGhoul_attack_buf_self.troy", unit, 1, "L_hand", lifetime: buff.Duration);
-            //pbuff2 = AddParticleTarget(unit, "yorick_spectralGhoul_attack_buf_self.troy", unit, 1, "l_hand", lifetime: buff.Duration);
+
+            AddParticleTarget(ownerSpell.CastInfo.Owner, "akali_markOftheAssasin_marker_tar_02.troy", unit, 1f, lifetime: buff.Duration);
+
+            //TODO: Find the overhead particle effects
         }
 
         public void OnDeactivate(IAttackableUnit unit, IBuff buff, ISpell ownerSpell)
