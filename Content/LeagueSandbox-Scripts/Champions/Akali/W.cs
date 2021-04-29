@@ -33,22 +33,17 @@ namespace Spells
         public void OnSpellPostCast(ISpell spell)
         {
             var owner = spell.CastInfo.Owner;
-            var smokeBomb = AddParticle(owner, "akali_smoke_bomb_tar.troy", owner.Position);
+            var initialCastPos = owner.Position;
+            var smokeBomb = AddParticle(owner, "akali_smoke_bomb_tar.troy", initialCastPos, lifetime: 8);
             /*
              * TODO: Display green border (akali_smoke_bomb_tar_team_green.troy) for the own team,
              * display red border (akali_smoke_bomb_tar_team_red.troy) for the enemy team
              * Currently only displaying the green border for everyone
             */
-            var smokeBombBorder = AddParticle(owner, "akali_smoke_bomb_tar_team_green.troy", owner.Position);
+            var smokeBombBorder = AddParticle(owner, "akali_smoke_bomb_tar_team_green.troy", initialCastPos, lifetime: 8);
             //TODO: Add invisibility
 
-            CreateTimer(8.0f, () =>
-            {
-                LogInfo("8 second timer finished, removing smoke bomb");
-                RemoveParticle(smokeBomb);
-                RemoveParticle(smokeBombBorder);
-                //TODO: Remove invisibility
-            });
+
         }
 
         public void OnSpellChannel(ISpell spell)
