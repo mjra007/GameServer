@@ -6,6 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Buffs\NewFolder\**" />
+    <EmbeddedResource Remove="Buffs\NewFolder\**" />
+    <None Remove="Buffs\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\GameServerCore\GameServerCore.csproj" />
     <ProjectReference Include="..\..\GameServerLib\GameServerLib.csproj" />
   </ItemGroup>
