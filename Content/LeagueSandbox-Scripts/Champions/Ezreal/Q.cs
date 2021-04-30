@@ -112,13 +112,15 @@ namespace Spells
             target.TakeDamage(owner, damage, DamageType.DAMAGE_TYPE_PHYSICAL, DamageSource.DAMAGE_SOURCE_ATTACK, false);
             for (byte i = 0; i < 4; i++)
             {
-                owner.Spells[i].LowerCooldown(1);
+                //spell.LowerCooldown(1f);
+                owner.Spells[i].LowerCooldown(1f);
             }
 
             AddParticleTarget(spell.CastInfo.Owner, "Ezreal_mysticshot_tar.troy", target);
+            AddBuff("EzrealRisingSpellForce", 6f, 1, spell, owner, owner);
+
             missile.SetToRemove();
 
-            // SpellBuffAdd EzrealRisingSpellForce
         }
 
         public void OnSpellCast(ISpell spell)

@@ -110,13 +110,17 @@ namespace Spells
             {
                 AddBuff("EzrealWBuff", 5f, 1, spell, champion, owner);
                 AddParticleTarget(owner, "Ezreal_essenceflux_tar.troy", champion);
+                AddBuff("EzrealRisingSpellForce", 6f, 1, spell, owner, owner);
+
             }
             else
             {
                 var damage = 25 + (45 * spell.CastInfo.SpellLevel) + (ownerAbilityPowerTotal * 0.8f);
 
-                target.TakeDamage(owner, damage, DamageType.DAMAGE_TYPE_MAGICAL, DamageSource.DAMAGE_SOURCE_SPELL, DamageResultType.RESULT_NORMAL);
+                target.TakeDamage(owner, damage, DamageType.DAMAGE_TYPE_MAGICAL, DamageSource.DAMAGE_SOURCE_SPELL, false);
                 AddParticleTarget(owner, "Ezreal_essenceflux_tar.troy", champion);
+                AddBuff("EzrealRisingSpellForce", 6f, 1, spell, owner, owner);
+
             }
 
             // SpellBuffAdd EzrealRisingSpellForce

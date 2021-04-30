@@ -55,6 +55,8 @@ namespace Spells
                 var ap = owner.Stats.AbilityPower.Total * 0.9f;
                 var damage = 200 + spell.CastInfo.SpellLevel * 150 + bonusAd + ap;
                 target.TakeDamage(owner, damage * (1f - (reduc-1f) / 10f), DamageType.DAMAGE_TYPE_MAGICAL, DamageSource.DAMAGE_SOURCE_SPELL, false);
+                AddBuff("EzrealRisingSpellForce", 6f, 1, spell, owner, owner);
+
             }
 
         }
