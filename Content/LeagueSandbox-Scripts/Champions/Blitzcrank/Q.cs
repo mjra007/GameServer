@@ -42,7 +42,7 @@ namespace Spells
             var trueCoords = current + range;
 
 
-            SpellCast(owner, 0, SpellSlotType.ExtraSlots, trueCoords, trueCoords, false, Vector2.Zero);
+            SpellCast(spell.CastInfo.Owner, 0, SpellSlotType.ExtraSlots, trueCoords, trueCoords, false, Vector2.Zero);
             PlayAnimation(spell.CastInfo.Owner, "SPELL1");
         }
 
