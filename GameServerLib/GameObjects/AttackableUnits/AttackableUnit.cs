@@ -701,8 +701,10 @@ namespace LeagueSandbox.GameServer.GameObjects.AttackableUnits
                     }
 
                     // TODO: Unload and reload all data of buff script here.
-
-                    ParentBuffs[b.Name].ActivateBuff();
+                    if (b.StackCount < b.MaxStacks)
+                    {
+                        ParentBuffs[b.Name].ActivateBuff();
+                    }
                 }
             }
         }
